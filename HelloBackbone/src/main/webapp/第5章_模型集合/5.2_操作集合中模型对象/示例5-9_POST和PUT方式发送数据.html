@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>示例5-9_POST和PUT方式发送数据</title>
+
+<script type="text/javascript" src="/js/underscore-1.8.3.js"></script>
+<script type="text/javascript" src="/js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="/js/json2.js"></script>
+<script type="text/javascript" src="/js/backbone-1.3.3.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    Backbone.emulateJSON = true;
+	var student = Backbone.Model.extend({
+		defaults: {
+			Code: "10001",
+			Name: "张三",
+			Score: 100
+		}
+	});
+	var stulist = Backbone.Collection.extend({
+		model: student,
+		url: "/student/create"
+	});
+	var stus = new stulist();
+	stus.create({
+		Code: "10107",
+		Name: "陶国荣",
+		Score: 750
+	});
+});
+</script>
+
+</head>
+<body>
+</body>
+</html>

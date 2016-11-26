@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>5.1_示例 创建集合对象</title>
+
+<script type="text/javascript" src="/js/underscore-1.8.3.js"></script>
+<script type="text/javascript" src="/js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="/js/json2.js"></script>
+<script type="text/javascript" src="/js/backbone-1.3.3.js"></script>
+
+</head>
+<body>
+	<!-- 示例5-1 自定义集合对象 -->
+	<script type="text/javascript">
+    (function () {
+    	var student = Backbone.Model.extend({
+    		defaults: {
+    			Code: "",
+    			Name: "",
+    			Score: ""
+    		}
+    	});
+    	var stuList = Backbone.Collection.extend({
+    		model: student
+    	});
+    	var stuModels = [{
+    		Code: "10104",
+    		Name: "周小敏",
+    		Score: 500
+    	}, {
+    		Code: "10105",
+    		Name: "陆明明",
+    		Score: 300
+    	}, {
+    		Code: "10107",
+    		Name: "陈天豪",
+    		Score: 720
+    	}];
+    	var stus = new stuList(stuModels);
+    	for (var i = 0; i < stus.models.length; i++) {
+    		console.log(stus.models[i].toJSON());
+    	}
+    });
+    </script>
+
+	<!-- 示例5-2 实例化集合对象 -->
+	<script type="text/javascript">
+    (function () {
+        var student = Backbone.Model.extend({
+            defaults: {
+                Code: "",
+                Name: "",
+                Score: ""
+            }
+        });
+        var stuModels = [{
+            Code: "10104",
+            Name: "周小敏",
+            Score: 500
+        }, {
+            Code: "10105",
+            Name: "陆明明",
+            Score: 300
+        }, {
+            Code: "10107",
+            Name: "陈天豪",
+            Score: 720
+        }];
+        var stus = new Backbone.Collection(stuModels, {
+            model: student
+        });
+        for (var i = 0; i < stus.models.length; i++) {
+            console.log(stus.models[i].toJSON());
+        }
+    });
+    </script>
+
+	<!-- 示例5-3 自定义集合方法 -->
+	<script type="text/javascript">
+    $(function () {
+    	var student = Backbone.Model.extend({
+    		defaults: {
+    			Code: "",
+    			Name: "",
+    			Score: 0
+    		}
+    	});
+    	var stulist = Backbone.Collection.extend({
+    		model: student,
+    		good: function () {
+    			return this.filter(function (stu) {
+    				return stu.get("Score") > 400;
+    			});
+    		}
+    	});
+    	var stumodels = [{
+            Code: "10104",
+            Name: "周小敏",
+            Score: 500
+        }, {
+            Code: "10105",
+            Name: "陆明明",
+            Score: 300
+        }, {
+            Code: "10107",
+            Name: "陈天豪",
+            Score: 720
+        }];
+    	var stus = new stulist(stumodels);
+    	var stug = stus.good();
+    	for (var i = 0; i < stug.length; i++) {
+    		console.log(stug[i].toJSON());
+    	}
+    });
+    </script>
+</body>
+</html>

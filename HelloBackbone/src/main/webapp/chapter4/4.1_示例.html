@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>4.1_示例</title>
+
+    <script type="text/javascript" src="/html2/js/underscore-1.8.3.js"></script>
+    <script type="text/javascript" src="/html2/js/jquery-3.1.1.js"></script>
+    <script type="text/javascript" src="/html2/js/json2.js"></script>
+    <script type="text/javascript" src="/html2/js/backbone-1.3.3.js"></script>
+
+</head>
+<body>
+    <!-- 示例4-1 创建一个简单模型对象 -->
+    <script type="text/javascript">
+        (function () {
+            var student = Backbone.Model.extend({
+                initialize: function () {
+                    intNum++;
+                    console.log("您构建了" + intNum + "个对象");
+                }
+            });
+            var intNum = 0;
+            var stuA = new student();
+            var stuB = new student();
+        });
+    </script>
+
+    <!-- 示例4-2 对象模型赋值的方法 -->
+    <script type="text/javascript">
+        (function () {
+            var student = Backbone.Model.extend({
+                initialize: function () {
+                    // 执行构造代码
+                },
+                defaults: {
+                    Code: "",
+                    Name: "",
+                    Score: ""
+                }
+            });
+            var stuA = new student();
+            stuA.set({
+                Code: "10101",
+                Name: "'我是谁'",
+                Score: "300",
+                Class: "一年级<二>班"
+            });
+            console.log(stuA.get("Name") + " 在 " + stuA.get("Class") + " 读小学");
+            console.log(stuA.escape("Name") + " 在 " + stuA.escape("Class") + " 读小学");
+        });
+    </script>
+
+    <!-- 示例4-3 自定义PrintLog方法 -->
+    <script type="text/javascript">
+        (function () {
+            var student = Backbone.Model.extend({
+                initialize: function () {
+                    // 执行构造代码
+                },
+                defaults: {
+                    Code: "",
+                    Name: "",
+                    Score: ""
+                },
+                PrintLog: function () {
+                    console.log(this.get("Name") + " 在 " + this.get("Class") + " 读小学");
+                    console.log(this.escape("Name") + " 在 " + this.escape("Class") + " 读小学");
+                }
+            });
+            var stuA = new student();
+            stuA.set({
+                Code: "10102",
+                Name: "'我是谁'",
+                Score: "300",
+                Class: "一年级<一>班"
+            });
+            stuA.PrintLog();
+        });
+    </script>
+
+    <!-- 示例4-4 监听Name属性值的变化 -->
+    <script type="text/javascript">
+        $(function () {
+            var student = Backbone.Model.extend({
+                initialize: function () {
+                    // 初始化时监听属性值变化事件
+                    this.on("change:Name", function () {
+                        var oldName = this.previous("Name");
+                        var newName = this.get("Name");
+                        if (oldName != newName) {
+                            console.log("Name原值：" + oldName + ", 新值：" + newName);
+                        }
+                    });
+                },
+                defaults: {
+                    Code: "",
+                    Name: "钟大清",
+                    Score: ""
+                }
+            });
+            var stuA = new student();
+            stuA.set("Name", "陈小明");
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>示例7-3_location对象的属性和方法</title>
+
+<script type="text/javascript" src="/js/underscore-1.8.3.js"></script>
+<script type="text/javascript" src="/js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="/js/json2.js"></script>
+<script type="text/javascript" src="/js/backbone-1.3.3.js"></script>
+
+</head>
+<body>
+    <div id="divShow"></div>
+    <input id="btnreload" type="button" value="重载" onclick="window.location.reload();" />
+    <input id="btnreplace" type="button" value="替换" onclick="window.location.replace('http://www.rttop.cn');" />
+</body>
+<style type="text/javascript">
+var $HTML = "";
+var $obj_wl = window.location;
+for (var idx in $obj_wl) {
+    $HTML += "<b>" + idx + ":" + "</b>" + $obj_wl[idx] + "</br>";
+}
+document.getElementById("divShow").innerHTML = $HTML;
+</style>
+</html>

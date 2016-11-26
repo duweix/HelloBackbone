@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>示例7-8_navigate方法的使用</title>
+
+<style type="text/css">
+div {
+    margin: 5px 0px;
+    font-size: 13px;
+}
+</style>
+
+<script type="text/javascript" src="/js/underscore-1.8.3.js"></script>
+<script type="text/javascript" src="/js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="/js/json2.js"></script>
+<script type="text/javascript" src="/js/backbone-1.3.3.js"></script>
+
+</head>
+<body>
+    <div id="divShow"></div>
+</body>
+<script type="text/javascript">
+var $divShow = $("#divShow");
+var TestRouter = Backbone.Router.extend({
+	routes: {
+		"search2/:key": "search2_key",
+		"search3/:key": "search3_key"
+	},
+	search2_key: function (key) {
+		$divShow.html("查询2关键字为 " + key + " 记录");
+	},
+	search3_key: function (key) {
+		$divShow.html("查询3关键字为 " + key + " 记录");
+	}
+});
+var router = new TestRouter();
+var intnum = 0;
+window.setInterval(function () {
+	intnum++;
+	if (intnum % 2 == 0)
+		router.navigate("search2/abc", { trigger: true });
+	else
+		router.navigate("search3/def", { trigger: true });
+}, 3000);
+Backbone.history.start();
+</script>
+</html>

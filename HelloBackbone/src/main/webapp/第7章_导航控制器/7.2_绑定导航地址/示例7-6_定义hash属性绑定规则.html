@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>示例7-6_定义hash属性绑定规则</title>
+
+<style type="text/css">
+div {
+    margin: 5px 0px;
+    font-size: 13px;
+}
+</style>
+
+<script type="text/javascript" src="/js/underscore-1.8.3.js"></script>
+<script type="text/javascript" src="/js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="/js/json2.js"></script>
+<script type="text/javascript" src="/js/backbone-1.3.3.js"></script>
+
+</head>
+<body>
+    <div>
+        <a href="#abc/p5">其它页</a>
+    </div>
+    <div id="divShow"></div>
+</body>
+<script type="text/javascript">
+var $divShow = $("#divShow");
+var TestRouter = Backbone.Router.extend({
+	routes: {
+		"*path/p:page": "search_other"
+	},
+	search_other: function (path, page) {
+		$divShow.html("路径名为 " + path + ", 页码为 " + page);
+	}
+});
+var router = new TestRouter();
+Backbone.history.start();
+</script>
+</html>

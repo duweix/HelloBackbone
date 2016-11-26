@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>示例6-6_自定义模板变量标记</title>
+
+<style type="text/css">
+body {
+    font-size: 12px;
+}
+ul {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+</style>
+
+<script type="text/javascript" src="/js/underscore-1.8.3.js"></script>
+<script type="text/javascript" src="/js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="/js/json2.js"></script>
+<script type="text/javascript" src="/js/backbone-1.3.3.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    Backbone.emulateJSON = true;
+	var Student = Backbone.Model.extend({
+		defaults: {
+			Code: "",
+			Name: "",
+			Score: 0.0
+		},
+		urlRoot: "/student/fetch",
+        idAttribute: "Code"
+	});
+	
+	_.templateSettings = {
+        interpolate: /\{\{(.+?)\}\}/g
+	};
+    var StuView = Backbone.View.extend({
+        el: $("#ulshowstus"),
+        initialize: function() {
+            this.template = _.template($("#stus-tpl").html());
+        },
+        render: function() {
+            this.$el.html(this.template(this.model.toJSON()));
+        }
+    });
+    
+	new Student({Code: "10107"}).fetch({
+		success: function(stu) {
+		    // 实例化一个view视图
+		    var stuv = new StuView({model: stu});
+		    stuv.render();
+		}
+	});
+});
+</script>
+
+</head>
+<body>
+    <ul id="ulshowstus"></ul>
+    <script type="text/template" id="stus-tpl">
+        <li>编号：{{Code}}</li>
+        <li>姓名：{{Name}}</li>
+        <li>分数：{{Score}}</li>
+    </script>
+</body>
+</html>
