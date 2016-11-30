@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+function btn_onclick() {
+    window.alert("Hello, World!");
+}
+
+function createXmlHttpRequest() {
+	var xmlHttp = null;
+	if (window.XMLHttpRequest) {
+		// For Mozilla, Safari, ...
+		xmlHttp = new XMLHttpRequest();
+	} else if (window.ActiveXObject) {
+		// For Internet Explorer
+		xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	return xmlHttp;
+}
+
+function btn2_onclick() {
+	var xmlHttp = createXmlHttpRequest();
+	alert(xmlHttp);
+	var param = "id=testid&name=testname";
+	xmlHttp.open("POST", "http://testdomain/", false);
+	xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xmlHttp.send(param);
+	var result = xmlHttp.status;
+	if (xmlHttp.readyState == 4) {
+		if (result == 200) {
+			var response = xmlHttp.responseText;
+			alert(response);
+		}
+	}
+}
+</script>
+</head>
+<body>
+    <input type="button" value="Hello, World!" onclick="btn_onclick();" />
+    <br />
+    <input type="button" value="Button2" onclick="btn2_onclick();" />
+</body>
+</html>
